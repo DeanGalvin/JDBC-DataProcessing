@@ -148,20 +148,20 @@ public class JDBCMainWindowContent extends JInternalFrame implements ActionListe
 		detailsPanel.add(testValueLabel);
 		detailsPanel.add(testValueTF);
 
-		/*//setup details panel and add the components to it
+		//setup details panel and add the components to it
 		exportButtonPanel=new JPanel();
 		exportButtonPanel.setLayout(new GridLayout(3,2));
 		exportButtonPanel.setBackground(Color.lightGray);
 		exportButtonPanel.setBorder(BorderFactory.createTitledBorder(lineBorder, "Export Data"));
-		exportButtonPanel.add(last3LossRates);
+		/*exportButtonPanel.add(last3LossRates);
 		exportButtonPanel.add(last3LossRatesTF);
 		exportButtonPanel.add(avgofRSS);
 		exportButtonPanel.add(avgofRSSTF);
 		exportButtonPanel.add(overLappingAP);
-		exportButtonPanel.add(overLappingChannels);
-		exportButtonPanel.setSize(500, 200);
-		exportButtonPanel.setLocation(3, 300);
-		content.add(exportButtonPanel);*/
+		exportButtonPanel.add(overLappingChannels);*/
+		exportButtonPanel.setSize(700, 200);
+		exportButtonPanel.setLocation(476, 300);
+		content.add(exportButtonPanel);
 
 		insertButton.setSize(100, 30);
 		updateButton.setSize(100, 30);
@@ -262,15 +262,30 @@ public class JDBCMainWindowContent extends JInternalFrame implements ActionListe
 		 {
 	 		try
 	 		{
- 				String updateTemp ="INSERT INTO ChurnData VALUES ('"+
- 						stateTF.getText()+"','"+accountLengthTF.getText()+"','"+areaCodeTF.getText()+"','"+phoneNumberTF.getText()+"','"
- 		 				 +intPlanTF.getText()+"','"+vmPlanTF.getText()+"','"+numVmailMessagesTF.getText()+"','"+totalDayMinTF.getText()+"','"+totalDayCallsTF.getText()+
- 		 				 "','"+totalDayChargeTF.getText()+"','"+totalEveMinTF.getText()+totalEveCallsTF.getText()+totalEveChargeTF.getText()+
- 		 				totalNightMinTF.getText()+totalNightCallsTF.getText()+totalNightChargeTF.getText()+totalIntlMinTF.getText()+
- 		 				totalIntlCallsTF.getText()+totalIntlChargeTF.getText()+numCustServCallsTF.getText()+testValueTF.getText()+"');";
+ 				String updateTemp ="INSERT INTO ChurnData VALUES (null, '"+
+ 						stateTF.getText()+
+ 						"','"+accountLengthTF.getText()+
+ 						"','"+areaCodeTF.getText()+
+ 						"','"+phoneNumberTF.getText()+
+ 						"','"+intPlanTF.getText()+
+ 						"','"+vmPlanTF.getText()+
+ 						"','"+numVmailMessagesTF.getText()+
+ 						"','"+totalDayMinTF.getText()+
+ 						"','"+totalDayCallsTF.getText()+
+ 		 				"','"+totalDayChargeTF.getText()+
+ 		 				"','"+totalEveMinTF.getText()+
+ 		 				"','"+totalEveCallsTF.getText()+
+ 		 				"','"+totalEveChargeTF.getText()+
+ 		 				"','"+totalNightMinTF.getText()+
+ 		 				"','"+totalNightCallsTF.getText()+
+ 		 				"','"+totalNightChargeTF.getText()+
+ 		 				"','"+totalIntlMinTF.getText()+
+ 		 				"','"+totalIntlCallsTF.getText()+
+ 		 				"','"+totalIntlChargeTF.getText()+
+ 		 				"','"+numCustServCallsTF.getText()+
+ 		 				"','"+testValueTF.getText()+"');";
 
  				stmt.executeUpdate(updateTemp);
-
 	 		}
 	 		catch (SQLException sqle)
 	 		{
@@ -323,14 +338,13 @@ public class JDBCMainWindowContent extends JInternalFrame implements ActionListe
  					    "totalIntlMinutes = " + totalIntlMinTF.getText() + "," +
  					    "totalIntlCalls = " + totalIntlCallsTF.getText() + "," +
  					    "totalIntlCharge = " + totalIntlChargeTF.getText() + "," +
- 					    "numCustomerServiceCalls = " + numCustServCallsTF.getText() + "" +
+ 					    "numCustomerServiceCalls = " + numCustServCallsTF.getText() + "," +
  					    "testValue = '" + testValueTF.getText() + "' where rec_id = " + recordIDTF.getText();
-
 
  				System.out.println(updateTemp);
  				stmt.executeUpdate(updateTemp);
  				//these lines do nothing but the table updates when we access the db.
- 				rs = stmt.executeQuery("SELECT * from APPERFDATA ");
+ 				rs = stmt.executeQuery("SELECT * from ChurnData ");
  				rs.next();
  				rs.close();
  			}
@@ -341,7 +355,9 @@ public class JDBCMainWindowContent extends JInternalFrame implements ActionListe
 	 			TableModel.refreshFromDB(stmt);
 			}
 		 }
+
+		 if (target == exportButton) {
+			 System.out.println("Export Button Pressed");
+		 }
 	}
-
-
 }
